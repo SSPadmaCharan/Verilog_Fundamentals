@@ -1,70 +1,71 @@
-
-
 # Verilog Fundamentals
 
-A structured collection of Verilog HDL examples, exercises, and digital design implementations created while learning FPGA and VLSI design.
+A structured collection of Verilog HDL implementations developed while learning digital design, computer architecture, FPGA development, and VLSI design.
 
-## Objectives
-
-- Learn Verilog HDL fundamentals
-- Build digital circuits from basic gates to complex systems
-- Understand hardware design through practical examples
-- Develop a strong foundation for FPGA and VLSI engineering
+The purpose of this repository is to document my progress from fundamental Verilog syntax to complex hardware systems through practical coding examples and projects.
 
 ---
 
-##  Topics Covered
-
-- Basic Syntax
-- Logic Gates
-- 7400 Series ICs
-- Combinational Circuits
-- Sequential Circuits
-- Finite State Machines
-- Digital Design Projects
-
----
-
-##  Repository Structure
+## Repository Structure
 
 ```text
 Verilog_Fundamentals
 │
 ├── README.md
+├── .gitignore
 │
 ├── 01_basic_syntax
-│   ├── simple_wire.v
-│   ├── not_gate.v
-│   ├── and_gate.v
-│   ├── or_gate.v
-│   ├── xor_gate.v
-│   └── README.md
-│
 ├── 02_logic_gates
-│
 ├── 03_7400_series
+├── 04_combinational_circuits
+├── 05_vectors
+├── 06_procedural_blocks
+├── 07_sequential_circuits
+├── 08_finite_state_machines
+├── 09_projects
 │
 ├── Docs
-│
 └── Images
 ```
 
 ---
 
-## Goal
+## Learning Objectives
 
-Build a strong foundation in Verilog HDL for FPGA, Digital Design, and VLSI.
+- Understand Verilog HDL syntax and language constructs.
+- Design combinational and sequential digital circuits.
+- Implement standard logic gates and 7400 series ICs.
+- Develop reusable hardware modules.
+- Learn simulation and verification using testbenches.
+- Build larger digital systems through modular design.
+- Establish a strong foundation for FPGA and VLSI development.
 
 ---
 
-##  Tools Used
+## Development Environment
 
 - Visual Studio Code
 - Icarus Verilog
-- Git & GitHub
+- Git
+- GitHub
 
 ---
 
-##  Author
+## Progress
 
-Padma Charan S S
+- Repository setup
+- Basic syntax
+- Logic gates
+- 7400 series ICs
+- Combinational circuits
+- Sequential circuits
+- Finite state machines
+- Digital design projects
+
+---
+
+## Repository Goal
+
+This repository is intended to serve as a personal reference and learning archive while progressing from introductory Verilog concepts to complete digital hardware design.
+
+Each directory contains independent examples focused on a specific topic, making the repository easy to navigate and extend as new concepts are learned.
