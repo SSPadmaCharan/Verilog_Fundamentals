@@ -13,7 +13,7 @@ A structured collection of Verilog HDL examples, exercises, and digital design i
 
 ---
 
-## 📚 Topics Covered
+##  Topics Covered
 
 - Basic Syntax
 - Logic Gates
@@ -25,7 +25,7 @@ A structured collection of Verilog HDL examples, exercises, and digital design i
 
 ---
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```text
 Verilog_Fundamentals
@@ -51,13 +51,13 @@ Verilog_Fundamentals
 
 ---
 
-## 🎯 Goal
+## Goal
 
 Build a strong foundation in Verilog HDL for FPGA, Digital Design, and VLSI.
 
 ---
 
-## 🛠 Tools Used
+##  Tools Used
 
 - Visual Studio Code
 - Icarus Verilog
@@ -65,6 +65,6 @@ Build a strong foundation in Verilog HDL for FPGA, Digital Design, and VLSI.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Padma Charan S S
