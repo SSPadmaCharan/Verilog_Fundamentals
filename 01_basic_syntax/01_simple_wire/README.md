@@ -1,52 +1,61 @@
-# 01 – Simple Wire
+<div align="center">
 
-**Project 01** of the **Verilog Fundamentals** repository.
+# 🔌 01 — Simple Wire
 
-This project demonstrates the simplest possible digital circuit in Verilog by directly connecting an input signal to an output signal using a continuous assignment.
+### *Project 01 of the Verilog Fundamentals Repository*
 
----
+**The simplest possible digital circuit — a direct, continuous connection between input and output.**
 
-## Objective
+![Verilog](https://img.shields.io/badge/Verilog-HDL-blue?style=for-the-badge)
+![Icarus](https://img.shields.io/badge/Simulator-Icarus%20Verilog-orange?style=for-the-badge)
+![GTKWave](https://img.shields.io/badge/Waveform-GTKWave-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
 
-The objective of this project is to understand:
-
-- Verilog module declaration
-- Input and output ports
-- Continuous assignment (`assign`)
-- Testbench creation
-- Module instantiation
-- Simulation using Icarus Verilog
-- Waveform generation using GTKWave
-- Basic RTL verification workflow
+</div>
 
 ---
 
-## Prerequisites
+## 📖 Objective
 
-Before starting this project, you should be familiar with:
+This project builds the foundation for everything that follows in the repository. By the end of it, you'll understand:
+
+| Concept | Description |
+|---|---|
+| 🧩 Module Declaration | How a Verilog module is structured |
+| 🔀 Ports | Input and output port definitions |
+| ⚡ Continuous Assignment | The `assign` statement |
+| 🧪 Testbenches | Writing stimulus to verify a design |
+| 🔗 Module Instantiation | Connecting a DUT to a testbench |
+| ▶️ Simulation | Running designs with Icarus Verilog |
+| 🌊 Waveforms | Visualizing signals with GTKWave |
+| ✅ RTL Verification | The full simulate → verify workflow |
+
+---
+
+## 📚 Prerequisites
 
 - Basic digital electronics
-- Binary logic
-- The concept of a wire
+- Binary logic fundamentals
+- Understanding of what a *wire* is
 - Basic Verilog syntax
 
 ---
 
-## Theory
+## 🧠 Theory
 
-A **simple wire** is the most basic digital connection possible.
+A **Simple Wire** is the most fundamental digital connection there is — the input passes straight through to the output, with **zero logic** in between. The moment the input changes, the output follows instantly.
 
-It transfers the input signal directly to the output, with no logic operation performed. Whenever the input changes, the output changes immediately.
+<div align="center">
 
-**Boolean Expression**
+### Boolean Expression
 
-```
-Y = A
-```
+**Y = A**
+
+</div>
 
 ---
 
-## Circuit Representation
+## 🔌 Circuit Representation
 
 ```
              +------------------+
@@ -54,88 +63,69 @@ Y = A
              +------------------+
 ```
 
-Or more simply:
+Or, more simply:
 
 ```
-Input ---------------------------> Output
+Input ───────────────────────────────► Output
 ```
 
 ---
 
-## RTL Design
+## 💻 RTL Design
 
 ```verilog
 module simple_wire(
-    input wire in,
+    input  wire in,
     output wire out
 );
 
-assign out = in;
+    assign out = in;
 
 endmodule
 ```
 
 ---
 
-## Testbench
+## 🧪 Testbench
 
-The testbench applies a sequence of input values to verify that the output always follows the input.
+The testbench drives a sequence of values onto the input and confirms the output tracks it exactly.
 
-**Input Sequence**
-
-```
-0 → 1 → 0
-```
-
-**Simulation Timeline**
-
-```
-0 ns → 10 ns → 20 ns → 30 ns
-```
+**Input Sequence:** `0 → 1 → 0`
+**Simulation Timeline:** `0 ns → 10 ns → 20 ns → 30 ns`
 
 ---
 
-## Expected Simulation Result
+## 📊 Expected Simulation Result
 
 | Time (ns) | Input | Output |
-|----------:|:-----:|:------:|
+|:---:|:---:|:---:|
 | 0 | 0 | 0 |
 | 10 | 1 | 1 |
 | 20 | 0 | 0 |
-| 30 | Simulation Ends | Simulation Ends |
+| 30 | — *simulation ends* — | — *simulation ends* — |
 
 ---
 
 ## Waveform
 
-The waveform generated using **GTKWave** is shown below.
-
 ![Waveform](waveform.png)
 
 ---
 
-## Waveform Analysis
+## 🔍 Waveform Analysis
 
-**At 0 ns**
-- Input is LOW (`0`)
-- Output immediately becomes LOW (`0`)
+<table>
+<tr><td><b>0 ns</b></td><td>Input is <code>LOW (0)</code> — output immediately matches at <code>LOW (0)</code></td></tr>
+<tr><td><b>10 ns</b></td><td>Input rises to <code>HIGH (1)</code> — output follows instantly to <code>HIGH (1)</code></td></tr>
+<tr><td><b>20 ns</b></td><td>Input falls back to <code>LOW (0)</code> — output follows instantly to <code>LOW (0)</code></td></tr>
+<tr><td><b>30 ns</b></td><td><code>$finish</code> terminates the simulation</td></tr>
+</table>
 
-**At 10 ns**
-- Input changes to HIGH (`1`)
-- Output immediately follows and becomes HIGH (`1`)
-
-**At 20 ns**
-- Input changes back to LOW (`0`)
-- Output immediately follows and becomes LOW (`0`)
-
-**At 30 ns**
-- `$finish` terminates the simulation.
-
-Since the module uses a continuous assignment, the output always follows the input without any additional logic.
+Because this design uses a **continuous assignment**, the output tracks the input with no delay and no additional logic — a perfect 1:1 mirror.
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 01_simple_wire/
@@ -148,177 +138,168 @@ Since the module uses a continuous assignment, the output always follows the inp
 
 ---
 
-## How to Run
+## ▶️ How to Run
 
-**Step 1 — Compile**
-
+**1. Compile the design**
 ```bash
 iverilog -o simple_wire.out simple_wire.v simple_wire_tb.v
 ```
 
-**Step 2 — Run Simulation**
-
+**2. Run the simulation**
 ```bash
 vvp simple_wire.out
 ```
 
-**Step 3 — Open GTKWave**
-
+**3. View the waveform**
 ```bash
 gtkwave waveform.vcd
 ```
 
 ---
 
-## Expected Output
+## 🖥️ Expected Output
 
 ```
 Input
-
 0 ─────────── 1 ─────────── 0
 
 Output
-
 0 ─────────── 1 ─────────── 0
 ```
 
-The output always follows the input because of the continuous assignment.
+The output always mirrors the input — the defining behavior of a continuous assignment.
 
 ---
 
-## Key Concepts Learned
+## 🎯 Key Concepts Learned
 
-- Verilog module
-- Module declaration
-- Input port
-- Output port
-- `wire`
-- `reg`
+<details>
+<summary><b>Click to expand full concept list</b></summary>
+
+- Verilog module & module declaration
+- Input / output ports
+- `wire` vs `reg`
 - Continuous assignment (`assign`)
-- Testbench
-- Module instantiation
+- Testbenches & module instantiation
 - Named port mapping
 - `` `timescale ``
-- `initial`
-- `begin` / `end`
-- Delay (`#10`)
-- `$dumpfile`
-- `$dumpvars`
-- `$finish`
-- Icarus Verilog
-- GTKWave
-- RTL simulation
-- Waveform analysis
+- `initial` blocks, `begin` / `end`
+- Delays (`#10`)
+- `$dumpfile`, `$dumpvars`, `$finish`
+- Icarus Verilog & GTKWave
+- RTL simulation & waveform analysis
+
+</details>
 
 ---
 
-## Learning Notes
+## 📝 My Learning Notes
 
-During this project, I learned that **Verilog is not a traditional programming language — it is a Hardware Description Language (HDL) used to model digital circuits.**
+This project taught me that **Verilog isn't a traditional programming language — it's a Hardware Description Language (HDL)** used to model digital circuits, not compute step-by-step instructions.
 
-I understood how a **testbench** generates input signals and how the **Design Under Test (DUT)** responds to those signals.
+I learned how a **testbench** generates stimulus and how the **DUT (Design Under Test)** responds to it, and walked through the complete RTL verification workflow for the first time:
 
-I also learned the complete RTL verification workflow:
+```
+Write RTL → Write Testbench → Compile (Icarus Verilog)
+     → Simulate → Generate VCD → View Waveform (GTKWave)
+```
 
-- Writing RTL
-- Writing a testbench
-- Compiling using Icarus Verilog
-- Running the simulation
-- Generating a VCD file
-- Viewing waveforms in GTKWave
-
-This project also strengthened my understanding of:
+It also sharpened my understanding of:
 
 - The difference between `wire` and `reg`
 - Continuous assignments
 - Module instantiation
-- Waveform verification
-- Basic digital hardware simulation
+- Waveform-based verification
+- The basics of digital hardware simulation
 
-This was my **first complete RTL verification project**.
+This was my **first complete RTL verification project** — small in scope, but it's the foundation everything else in this repository builds on.
 
 ---
 
-## Interview Questions
+## 💼 Interview Questions
 
-**1. Why is the input declared as `reg` inside the testbench?**
+<details>
+<summary><b>1. Why is the input declared as <code>reg</code> inside the testbench?</b></summary>
+<br>
+Because the testbench assigns values to it inside an <code>initial</code> block, and only <code>reg</code> types can be assigned procedurally.
+</details>
 
-Because the testbench assigns values to it inside an `initial` block.
+<details>
+<summary><b>2. Why is the output declared as <code>wire</code>?</b></summary>
+<br>
+Because the output is driven by the DUT (Design Under Test) — the testbench only observes it, never drives it.
+</details>
 
-**2. Why is the output declared as `wire`?**
+<details>
+<summary><b>3. What does <code>assign</code> do?</b></summary>
+<br>
+It creates a <b>continuous assignment</b> — the output updates automatically, in real time, whenever the input changes.
+</details>
 
-Because the output is driven by the DUT (Design Under Test). The testbench only observes its value.
+<details>
+<summary><b>4. What is the purpose of <code>$dumpfile</code>?</b></summary>
+<br>
+It creates a <b>VCD (Value Change Dump)</b> file that records every signal transition during simulation.
+</details>
 
-**3. What does `assign` do?**
+<details>
+<summary><b>5. What is the purpose of <code>$dumpvars</code>?</b></summary>
+<br>
+It specifies which modules or signals should actually be recorded into that VCD file.
+</details>
 
-`assign` creates a **continuous assignment**, meaning the output is continuously updated whenever the input changes.
-
-**4. What is the purpose of `$dumpfile`?**
-
-It creates a **VCD (Value Change Dump)** file that stores signal transitions during simulation.
-
-**5. What is the purpose of `$dumpvars`?**
-
-It specifies which module or signals should be recorded into the VCD file.
-
-**6. What is the purpose of `$finish`?**
-
+<details>
+<summary><b>6. What is the purpose of <code>$finish</code>?</b></summary>
+<br>
 It terminates the simulation.
+</details>
 
-**7. What is a testbench?**
+<details>
+<summary><b>7. What is a Testbench?</b></summary>
+<br>
+A Verilog module that generates input stimulus, drives the DUT, and checks whether it behaves as expected.
+</details>
 
-A testbench is a Verilog module that generates input stimulus, verifies the DUT, and checks whether the design behaves as expected.
-
-**8. What is a DUT?**
-
-**DUT** stands for **Design Under Test**. It is the hardware module being verified by the testbench.
+<details>
+<summary><b>8. What is a DUT?</b></summary>
+<br>
+<b>DUT</b> = <b>Design Under Test</b> — the hardware module actively being verified by the testbench.
+</details>
 
 ---
 
-## Next Project
+## 🚀 Next Project
 
-### 02 – Multiple Wire
+### ➡️ [02 — Multiple Wire](../02_multiple_wire)
 
-In the next project, I will learn:
-
-- Multiple inputs
-- Multiple outputs
+Coming up:
+- Multiple inputs and outputs
 - Signal connections
 - Multi-bit data flow
 - Improved testbench design
 
 ---
 
-## Author
+<div align="center">
+
+## 👨‍💻 Author
 
 **Padma Charan S S**
 
 **Repository:** Verilog Fundamentals
-
 **Learning Approach:** Project-Driven Learning
 
-### Repository Goal
-
-Build a complete Verilog repository progressing through:
+### Repository Roadmap
 
 ```
-Basic Verilog
-        ↓
-Combinational Logic
-        ↓
-Sequential Logic
-        ↓
-RTL Design
-        ↓
-FPGA Design
-        ↓
-Computer Architecture
-        ↓
-CPU Design
+Basic Verilog → Combinational Logic → Sequential Logic
+     → RTL Design → FPGA Design → Computer Architecture → CPU Design
 ```
 
-Each project introduces one new concept through practical implementation.
+*Every project teaches one new concept through practical implementation.*
 
 ---
 
 > *"Learning Verilog by building hardware, verifying it, documenting it, and improving one project at a time."*
+
+</div>
