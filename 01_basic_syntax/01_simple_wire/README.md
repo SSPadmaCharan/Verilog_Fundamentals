@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔌 01 — Simple Wire
+#  01 — Simple Wire
 
 ### *Project 01 of the Verilog Fundamentals Repository*
 
