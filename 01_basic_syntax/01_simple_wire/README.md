@@ -15,7 +15,7 @@
 
 ---
 
-## 📖 Objective
+##  Objective
 
 This project builds the foundation for everything that follows in the repository. By the end of it, you'll understand:
 
@@ -32,7 +32,7 @@ This project builds the foundation for everything that follows in the repository
 
 ---
 
-## 📚 Prerequisites
+##  Prerequisites
 
 - Basic digital electronics
 - Binary logic fundamentals
@@ -41,7 +41,7 @@ This project builds the foundation for everything that follows in the repository
 
 ---
 
-## 🧠 Theory
+##  Theory
 
 A **Simple Wire** is the most fundamental digital connection there is — the input passes straight through to the output, with **zero logic** in between. The moment the input changes, the output follows instantly.
 
@@ -55,7 +55,7 @@ A **Simple Wire** is the most fundamental digital connection there is — the in
 
 ---
 
-## 🔌 Circuit Representation
+## Circuit Representation
 
 ```
              +------------------+
@@ -71,7 +71,7 @@ Input ────────────────────────�
 
 ---
 
-## 💻 RTL Design
+##  RTL Design
 
 ```verilog
 module simple_wire(
@@ -86,7 +86,7 @@ endmodule
 
 ---
 
-## 🧪 Testbench
+##  Testbench
 
 The testbench drives a sequence of values onto the input and confirms the output tracks it exactly.
 
@@ -95,7 +95,7 @@ The testbench drives a sequence of values onto the input and confirms the output
 
 ---
 
-## 📊 Expected Simulation Result
+##  Expected Simulation Result
 
 | Time (ns) | Input | Output |
 |:---:|:---:|:---:|
@@ -112,7 +112,7 @@ The testbench drives a sequence of values onto the input and confirms the output
 
 ---
 
-## 🔍 Waveform Analysis
+##  Waveform Analysis
 
 <table>
 <tr><td><b>0 ns</b></td><td>Input is <code>LOW (0)</code> — output immediately matches at <code>LOW (0)</code></td></tr>
@@ -125,7 +125,7 @@ Because this design uses a **continuous assignment**, the output tracks the inpu
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 01_simple_wire/
@@ -138,7 +138,7 @@ Because this design uses a **continuous assignment**, the output tracks the inpu
 
 ---
 
-## ▶️ How to Run
+## ▶ How to Run
 
 **1. Compile the design**
 ```bash
@@ -157,7 +157,7 @@ gtkwave waveform.vcd
 
 ---
 
-## 🖥️ Expected Output
+##  Expected Output
 
 ```
 Input
@@ -171,7 +171,7 @@ The output always mirrors the input — the defining behavior of a continuous as
 
 ---
 
-## 🎯 Key Concepts Learned
+##  Key Concepts Learned
 
 <details>
 <summary><b>Click to expand full concept list</b></summary>
@@ -193,7 +193,7 @@ The output always mirrors the input — the defining behavior of a continuous as
 
 ---
 
-## 📝 My Learning Notes
+##  My Learning Notes
 
 This project taught me that **Verilog isn't a traditional programming language — it's a Hardware Description Language (HDL)** used to model digital circuits, not compute step-by-step instructions.
 
@@ -216,7 +216,7 @@ This was my **first complete RTL verification project** — small in scope, but 
 
 ---
 
-## 💼 Interview Questions
+##  Interview Questions
 
 <details>
 <summary><b>1. Why is the input declared as <code>reg</code> inside the testbench?</b></summary>
@@ -268,7 +268,7 @@ A Verilog module that generates input stimulus, drives the DUT, and checks wheth
 
 ---
 
-## 🚀 Next Project
+##  Next Project
 
 ### ➡️ [02 — Multiple Wire](../02_multiple_wire)
 
