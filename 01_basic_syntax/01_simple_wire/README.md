@@ -1,45 +1,44 @@
-# 01 - Simple Wire
+# 01 – Simple Wire
 
-> The first project in my **Project-Driven Verilog Learning** repository.
+**Project 01** of the **Verilog Fundamentals** repository.
 
----
-
-# 📖 Objective
-
-Learn how to create the simplest Verilog module by directly connecting an input to an output using a continuous assignment (`assign`).
-
-This project introduces the complete RTL development flow:
-
-- Writing RTL code
-- Writing a Testbench
-- Running Simulation
-- Generating Waveforms
-- Verifying the Design
+This project demonstrates the simplest possible digital circuit in Verilog by directly connecting an input signal to an output signal using a continuous assignment.
 
 ---
 
-# 📚 Prerequisites
+## Objective
 
-Before starting this project, you should know:
+The objective of this project is to understand:
 
-- Basic Digital Electronics
-- What is a Wire?
-- What is a Logic Signal?
-- Basic Verilog Module Syntax
+- Verilog module declaration
+- Input and output ports
+- Continuous assignment (`assign`)
+- Testbench creation
+- Module instantiation
+- Simulation using Icarus Verilog
+- Waveform generation using GTKWave
+- Basic RTL verification workflow
 
 ---
 
-# 🧠 Theory
+## Prerequisites
 
-A **Simple Wire** is the most basic digital circuit.
+Before starting this project, you should be familiar with:
 
-It directly transfers the value present at the input to the output.
+- Basic digital electronics
+- Binary logic
+- The concept of a wire
+- Basic Verilog syntax
 
-There is **no logic operation** performed.
+---
 
-Whenever the input changes, the output changes immediately.
+## Theory
 
-### Boolean Expression
+A **simple wire** is the most basic digital connection possible.
+
+It transfers the input signal directly to the output, with no logic operation performed. Whenever the input changes, the output changes immediately.
+
+**Boolean Expression**
 
 ```
 Y = A
@@ -47,23 +46,23 @@ Y = A
 
 ---
 
-# 🔌 Circuit Representation
+## Circuit Representation
 
 ```
-      +------------------+
-in --->|   Simple Wire    |----> out
-      +------------------+
+             +------------------+
+   in ------>|   Simple Wire    |------> out
+             +------------------+
 ```
 
-Or simply
+Or more simply:
 
 ```
-Input -----------------------> Output
+Input ---------------------------> Output
 ```
 
 ---
 
-# 💻 RTL Design
+## RTL Design
 
 ```verilog
 module simple_wire(
@@ -78,17 +77,17 @@ endmodule
 
 ---
 
-# 🧪 Testbench
+## Testbench
 
-The testbench generates different input values and checks whether the output follows the input correctly.
+The testbench applies a sequence of input values to verify that the output always follows the input.
 
-### Input Sequence
+**Input Sequence**
 
 ```
 0 → 1 → 0
 ```
 
-### Simulation Timeline
+**Simulation Timeline**
 
 ```
 0 ns → 10 ns → 20 ns → 30 ns
@@ -96,10 +95,10 @@ The testbench generates different input values and checks whether the output fol
 
 ---
 
-# 📊 Expected Simulation Result
+## Expected Simulation Result
 
 | Time (ns) | Input | Output |
-|-----------:|:-----:|:------:|
+|----------:|:-----:|:------:|
 | 0 | 0 | 0 |
 | 10 | 1 | 1 |
 | 20 | 0 | 0 |
@@ -107,68 +106,63 @@ The testbench generates different input values and checks whether the output fol
 
 ---
 
-# 🌊 Waveform
+## Waveform
 
-> Replace the image below with your own waveform screenshot.
+The waveform generated using **GTKWave** is shown below.
 
 ![Waveform](waveform.png)
 
 ---
 
-# 🔍 Waveform Analysis
+## Waveform Analysis
 
-At **0 ns**
+**At 0 ns**
+- Input is LOW (`0`)
+- Output immediately becomes LOW (`0`)
 
-- Input is LOW.
-- Output immediately becomes LOW.
+**At 10 ns**
+- Input changes to HIGH (`1`)
+- Output immediately follows and becomes HIGH (`1`)
 
-At **10 ns**
+**At 20 ns**
+- Input changes back to LOW (`0`)
+- Output immediately follows and becomes LOW (`0`)
 
-- Input changes to HIGH.
-- Output follows immediately.
+**At 30 ns**
+- `$finish` terminates the simulation.
 
-At **20 ns**
-
-- Input changes back to LOW.
-- Output follows immediately.
-
-At **30 ns**
-
-- `$finish` stops the simulation.
-
-Since the design uses a **continuous assignment**, the output always follows the input.
+Since the module uses a continuous assignment, the output always follows the input without any additional logic.
 
 ---
 
-# 📂 Project Structure
+## Project Structure
 
 ```
 01_simple_wire/
 │
+├── README.md
 ├── simple_wire.v
 ├── simple_wire_tb.v
-├── waveform.vcd
-├── waveform.png
-└── README.md
+└── waveform.png
 ```
 
 ---
 
-# ▶️ How to Run
+## How to Run
 
-### Step 1 - Compile
+**Step 1 — Compile**
 
 ```bash
 iverilog -o simple_wire.out simple_wire.v simple_wire_tb.v
 ```
 
-### Step 2 - Run Simulation
+**Step 2 — Run Simulation**
 
 ```bash
 vvp simple_wire.out
 ```
 
-### Step 3 - Open GTKWave
+**Step 3 — Open GTKWave**
 
 ```bash
 gtkwave waveform.vcd
@@ -176,29 +170,34 @@ gtkwave waveform.vcd
 
 ---
 
-# 🖥️ Expected Output
+## Expected Output
 
 ```
-Input :  0 → 1 → 0
-Output:  0 → 1 → 0
+Input
+
+0 ─────────── 1 ─────────── 0
+
+Output
+
+0 ─────────── 1 ─────────── 0
 ```
 
-The output should always match the input.
+The output always follows the input because of the continuous assignment.
 
 ---
 
-# 🎯 Key Concepts Learned
+## Key Concepts Learned
 
-- Verilog Module
-- Module Declaration
-- Input Port
-- Output Port
+- Verilog module
+- Module declaration
+- Input port
+- Output port
 - `wire`
 - `reg`
-- Continuous Assignment (`assign`)
+- Continuous assignment (`assign`)
 - Testbench
-- Module Instantiation
-- Named Port Mapping
+- Module instantiation
+- Named port mapping
 - `` `timescale ``
 - `initial`
 - `begin` / `end`
@@ -208,94 +207,118 @@ The output should always match the input.
 - `$finish`
 - Icarus Verilog
 - GTKWave
-- Waveform Verification
-
----
-
-# 📝 My Learning Notes
-
-During this project, I learned that **Verilog is not a programming language used to execute instructions sequentially—it is a Hardware Description Language (HDL) used to describe digital circuits.**
-
-I understood how a **testbench** generates input signals and how the **Design Under Test (DUT)** responds to those signals. I also learned how to compile Verilog code using **Icarus Verilog**, generate a **VCD (Value Change Dump)** file, and visualize signal transitions using **GTKWave**.
-
-This project strengthened my understanding of:
-
-- The difference between `wire` and `reg`
-- Continuous assignments using `assign`
-- Module instantiation
-- Simulation flow
+- RTL simulation
 - Waveform analysis
 
-This was my first complete RTL verification project.
+---
+
+## Learning Notes
+
+During this project, I learned that **Verilog is not a traditional programming language — it is a Hardware Description Language (HDL) used to model digital circuits.**
+
+I understood how a **testbench** generates input signals and how the **Design Under Test (DUT)** responds to those signals.
+
+I also learned the complete RTL verification workflow:
+
+- Writing RTL
+- Writing a testbench
+- Compiling using Icarus Verilog
+- Running the simulation
+- Generating a VCD file
+- Viewing waveforms in GTKWave
+
+This project also strengthened my understanding of:
+
+- The difference between `wire` and `reg`
+- Continuous assignments
+- Module instantiation
+- Waveform verification
+- Basic digital hardware simulation
+
+This was my **first complete RTL verification project**.
 
 ---
 
-# 💼 Interview Questions
+## Interview Questions
 
-### 1. Why is the input declared as `reg` inside the testbench?
+**1. Why is the input declared as `reg` inside the testbench?**
 
-Because the testbench assigns values to the input inside an `initial` block.
+Because the testbench assigns values to it inside an `initial` block.
 
----
+**2. Why is the output declared as `wire`?**
 
-### 2. Why is the output declared as `wire`?
+Because the output is driven by the DUT (Design Under Test). The testbench only observes its value.
 
-Because it is driven by the DUT (Design Under Test). The testbench only observes it.
+**3. What does `assign` do?**
 
----
+`assign` creates a **continuous assignment**, meaning the output is continuously updated whenever the input changes.
 
-### 3. What does `assign` do?
+**4. What is the purpose of `$dumpfile`?**
 
-It creates a continuous assignment. Whenever the input changes, the output updates automatically.
+It creates a **VCD (Value Change Dump)** file that stores signal transitions during simulation.
 
----
-
-### 4. What is the purpose of `$dumpfile`?
-
-It creates a VCD file to store signal transitions during simulation.
-
----
-
-### 5. What is the purpose of `$dumpvars`?
+**5. What is the purpose of `$dumpvars`?**
 
 It specifies which module or signals should be recorded into the VCD file.
 
----
-
-### 6. What is the purpose of `$finish`?
+**6. What is the purpose of `$finish`?**
 
 It terminates the simulation.
 
+**7. What is a testbench?**
+
+A testbench is a Verilog module that generates input stimulus, verifies the DUT, and checks whether the design behaves as expected.
+
+**8. What is a DUT?**
+
+**DUT** stands for **Design Under Test**. It is the hardware module being verified by the testbench.
+
 ---
 
-### 7. Why do we need a testbench?
+## Next Project
 
-A testbench generates input stimuli and verifies that the design behaves as expected.
-
----
-
-# 🚀 Next Project
-
-➡️ **02 - Multiple Wire**
+### 02 – Multiple Wire
 
 In the next project, I will learn:
 
-- Multiple Inputs
-- Multiple Outputs
-- Signal Connections
-- More Complex RTL Design
-- Better Testbench Writing
+- Multiple inputs
+- Multiple outputs
+- Signal connections
+- Multi-bit data flow
+- Improved testbench design
 
 ---
 
-# 👨‍💻 Author
+## Author
 
 **Padma Charan S S**
 
-Project: **Verilog Fundamentals**
+**Repository:** Verilog Fundamentals
 
-Learning Approach: **Project-Driven Learning**
+**Learning Approach:** Project-Driven Learning
 
-Repository Goal:
+### Repository Goal
 
-> Build a complete Verilog repository from **Basic → Advanced → RTL Design → FPGA → CPU Design**, where every project teaches a new concept through practical implementation.
+Build a complete Verilog repository progressing through:
+
+```
+Basic Verilog
+        ↓
+Combinational Logic
+        ↓
+Sequential Logic
+        ↓
+RTL Design
+        ↓
+FPGA Design
+        ↓
+Computer Architecture
+        ↓
+CPU Design
+```
+
+Each project introduces one new concept through practical implementation.
+
+---
+
+> *"Learning Verilog by building hardware, verifying it, documenting it, and improving one project at a time."*
