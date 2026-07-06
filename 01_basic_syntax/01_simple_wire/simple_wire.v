@@ -25,8 +25,8 @@
 //============================================================
 
 module simple_wire(
-    input in,
-    output out
+    input wire in,
+    output wire out
 );
 
 assign out = in;
