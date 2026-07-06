@@ -21,7 +21,7 @@
 // out : 1-bit output signal
 //
 // Synthesizable:
-// Yes
+// Yes.
 //============================================================
 
 module simple_wire(
@@ -29,6 +29,8 @@ module simple_wire(
     output wire out
 );
 
-assign out = in;
+assign out = in;//assigining 
+
 
 endmodule
+

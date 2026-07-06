@@ -138,7 +138,7 @@ Because this design uses a **continuous assignment**, the output tracks the inpu
 
 ---
 
-## ▶ How to Run
+##  How to Run
 
 **1. Compile the design**
 ```bash
@@ -270,7 +270,7 @@ A Verilog module that generates input stimulus, drives the DUT, and checks wheth
 
 ##  Next Project
 
-### ➡️ [02 — Multiple Wire](../02_multiple_wire)
+###  [02 — Multiple Wire](../02_multiple_wire)
 
 Coming up:
 - Multiple inputs and outputs
