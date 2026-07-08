@@ -23,10 +23,10 @@
 // Together, '~(a & b)' performs the NAND operation.
 //
 //==============================================================
-module nandgate (
+module nand_gate (
     input a,
     input b,
     output y
 );
-assign y = ~a+~b;
+assign y = ~(a & b);
 endmodule
