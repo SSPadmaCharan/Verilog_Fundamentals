@@ -150,7 +150,7 @@ initial begin
 
         #delay;
 
-    end
+    
         
         expected= a - b;
         if (expected=={bo,d}) begin
@@ -171,6 +171,8 @@ initial begin
     f_count=f_count + 1;
 
         end
+    end
+    
 
 
     if (f_count == 0)
