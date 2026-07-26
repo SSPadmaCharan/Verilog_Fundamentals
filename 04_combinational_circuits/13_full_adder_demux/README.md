@@ -1,14 +1,14 @@
 <div align="center">
 
-# Full Adder Using 1×8 Demultiplexer
+# 8-to-3 Binary Encoder
 
-**Structural + Gate-Level Verilog Model · Canonical Sum of Minterms · Self-Checking Verification**
+**Dataflow Verilog Model · One-Hot Input Encoding · Automated & Self-Checking Testbenches**
 
-`Project 13` — Combinational Circuits — *Verilog Fundamentals*
+`Project 14` — Combinational Circuits — *Verilog Fundamentals*
 
 ![Verilog](https://img.shields.io/badge/HDL-Verilog-blue?style=flat-square)
-![Design](https://img.shields.io/badge/Style-Structural%20%2B%20Gate--Level-purple?style=flat-square)
-![Concept](https://img.shields.io/badge/Concept-Minterm%20Realization-2E9EF7?style=flat-square)
+![Design](https://img.shields.io/badge/Style-Behavioral-teal?style=flat-square)
+![Concept](https://img.shields.io/badge/Concept-One--Hot%20Encoding-2E9EF7?style=flat-square)
 ![Simulator](https://img.shields.io/badge/Simulator-Icarus%20Verilog-orange?style=flat-square)
 ![Waveform](https://img.shields.io/badge/Waveform-GTKWave-brightgreen?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Complete-success?style=flat-square)
@@ -19,55 +19,51 @@
 
 ## 📖 Overview
 
-This project implements a **1-bit Full Adder** using a **1×8 Demultiplexer** and **OR gate primitives** — no XOR, no AND, nothing that looks like a "normal" adder circuit at all. Instead, the design realizes the Full Adder via the **Canonical Sum of Minterms (SOP)** approach: the 1×8 DEMUX generates every possible minterm, and OR gates stitch together the ones that matter to produce SUM and CARRY.
+This project implements an **8-to-3 Binary Encoder** using combinational logic in Verilog HDL. An encoder performs the reverse operation of a decoder — instead of expanding binary information into multiple output lines, it **compresses** multiple input lines into a smaller binary code, converting a **one-hot input** into its corresponding **3-bit binary representation**.
 
-This is the same universal-primitive idea explored with the MUX-based Full Adder a few projects back, but from the opposite direction — instead of building gates out of a selector, this design generates every possible input combination up front and simply *picks out* the ones that should be HIGH.
+The design assumes **exactly one input is HIGH at any given time**. Under that one-hot condition, the output is simply the binary index of whichever input is active.
 
 ### Project Objectives
 
-- Understand canonical Boolean realization
-- Learn how a DEMUX can generate minterms
-- Implement a Full Adder without XOR or AND gates
-- Learn gate primitive instantiation in Verilog
-- Practice structural RTL design
+- Understand the operation of a Binary Encoder
+- Learn the concept of one-hot encoding
+- Derive Boolean equations from a truth table
+- Implement combinational logic using continuous assignments
+- Design a structural RTL module
 - Verify the design via simulation and self-checking verification
 
 ---
 
-## 🧠 What Is Canonical Sum of Minterms?
+## 🧠 What Is an Encoder?
 
-Every Boolean function can be expressed as the **OR of all input combinations (minterms) for which the function evaluates HIGH**.
+An **Encoder** is a combinational circuit that converts one active input line into its equivalent binary code. Where a decoder expands binary information out into many outputs, an encoder does the reverse — compressing many input lines down into far fewer output bits.
 
-A DEMUX (or, equivalently, a Decoder with Enable) is a natural minterm generator — each of its outputs corresponds to exactly one input combination. Once every minterm is available, the desired output is just the OR of the ones the function needs.
+For this **8-to-3 Encoder**: 8 inputs, 3 outputs, with the assumption that only one input is HIGH at a time.
 
-This principle isn't just academic — it's the foundation behind real programmable logic devices:
+**Example:**
 
-- Programmable Logic Arrays (PLA)
-- Programmable Array Logic (PAL)
-- FPGA Lookup Tables (LUTs)
+```
+Input  = 00001000
+Output = 011
+```
+
+Since **D3** is the active input, the encoder correctly outputs **3 (011)**.
 
 ---
 
 ## 🏗️ Block Diagram
 
 ```
-                     ┌───────────────────────────┐
-   Logic '1' ───────►│                           │
-                     │        1×8 DEMUX          │
-        A ──────────►│ S2                        │
-        B ──────────►│ S1                        │
-      Cin ──────────►│ S0                        │
-                     │                           │
-                     └───────────────────────────┘
-                       Y0 Y1 Y2 Y3 Y4 Y5 Y6 Y7
-                        │  │  │  │  │  │  │  │
-                        └──┴──┴──┴──┴──┴──┴──┴──┐
-                                                 │
-            ┌────────────────────────────────────┤
-            │                                    │
-        4-input OR                          4-input OR
-            │                                    │
-           SUM                                 CARRY
+                ┌───────────────────┐
+   D0 ─────────►│                   │
+   D1 ─────────►│                   │
+   D2 ─────────►│                   │
+   D3 ─────────►│                   │───► B2
+   D4 ─────────►│   8-to-3 Encoder  │───► B1
+   D5 ─────────►│                   │───► B0
+   D6 ─────────►│                   │
+   D7 ─────────►│                   │
+                └───────────────────┘
 ```
 
 ---
@@ -76,145 +72,140 @@ This principle isn't just academic — it's the foundation behind real programma
 
 The design consists of:
 
-- One 1×8 DEMUX
-- Two 4-input OR gates
-- Three input variables (`A`, `B`, `Cin`)
-- Two output signals (`Sum`, `Carry`)
+- Eight input signals
+- Three output signals
+- Three OR networks
+- Continuous assignment statements
 
-The DEMUX activates exactly one minterm output for every possible input combination; OR gates then combine the required minterms into the final Full Adder outputs.
+Each output bit is generated by OR-ing together the specific input lines called for by the encoder's truth table.
 
 ---
 
 ## 🎨 Design Philosophy
 
-Instead of implementing Boolean expressions directly, this design first generates *every possible* minterm, then selectively combines only the ones needed. It's a deliberately different mental model from writing `assign sum = a ^ b ^ cin` — and one that maps far more directly onto how programmable logic hardware (PLAs, PALs, LUTs) actually works under the hood.
+Rather than reasoning through complex Boolean simplification, the encoder is derived **directly from its truth table** — each output bit is simply one bit of the binary index of whichever input is active. This keeps the design simple and makes the mapping from truth table to hardware almost mechanical.
 
 ---
 
-## 📊 Full Adder Truth Table
+## 📊 Truth Table
 
-| A | B | Cin | Sum | Carry |
-|:-:|:-:|:---:|:---:|:-----:|
-| 0 | 0 | 0 | **0** | **0** |
-| 0 | 0 | 1 | **1** | **0** |
-| 0 | 1 | 0 | **1** | **0** |
-| 0 | 1 | 1 | **0** | **1** |
-| 1 | 0 | 0 | **1** | **0** |
-| 1 | 0 | 1 | **0** | **1** |
-| 1 | 1 | 0 | **0** | **1** |
-| 1 | 1 | 1 | **1** | **1** |
-
----
-
-## 🔢 Minterm Generation
-
-The DEMUX's data input is permanently tied to Logic HIGH:
-
-```
-Input = 1
-```
-
-and the select lines are wired directly to the adder's inputs:
-
-```
-S2 = A
-S1 = B
-S0 = Cin
-```
-
-| A | B | Cin | Active Output |
-|:-:|:-:|:---:|:--------------:|
-| 0 | 0 | 0 | Y0 |
-| 0 | 0 | 1 | Y1 |
-| 0 | 1 | 0 | Y2 |
-| 0 | 1 | 1 | Y3 |
-| 1 | 0 | 0 | Y4 |
-| 1 | 0 | 1 | Y5 |
-| 1 | 1 | 0 | Y6 |
-| 1 | 1 | 1 | Y7 |
-
-Only one output is HIGH for any given input combination — exactly one minterm is "selected" per cycle.
+| Active Input | B2 | B1 | B0 |
+|:------------:|:--:|:--:|:--:|
+| D0 | 0 | 0 | 0 |
+| D1 | 0 | 0 | **1** |
+| D2 | 0 | **1** | 0 |
+| D3 | 0 | **1** | **1** |
+| D4 | **1** | 0 | 0 |
+| D5 | **1** | 0 | **1** |
+| D6 | **1** | **1** | 0 |
+| D7 | **1** | **1** | **1** |
 
 ---
 
-## ➕ Sum Realization
+## ⚙️ Boolean Equation Derivation
 
-SUM is HIGH for input rows `001`, `010`, `100`, and `111`:
+$$B_0 = D_1 + D_3 + D_5 + D_7$$
 
-$$Sum = Y_1 + Y_2 + Y_4 + Y_7$$
+$$B_1 = D_2 + D_3 + D_6 + D_7$$
 
-```
-Y1 ──┐
-Y2 ──┤
-     ├──── OR ───► SUM
-Y4 ──┤
-Y7 ──┘
-```
+$$B_2 = D_4 + D_5 + D_6 + D_7$$
 
----
-
-## 🔼 Carry Realization
-
-CARRY is HIGH for input rows `011`, `101`, `110`, and `111`:
-
-$$Carry = Y_3 + Y_5 + Y_6 + Y_7$$
-
-```
-Y3 ──┐
-Y5 ──┤
-     ├──── OR ───► Carry
-Y6 ──┤
-Y7 ──┘
-```
+These equations translate directly into RTL as continuous assignment statements — no intermediate simplification required.
 
 ---
 
 ## 🤔 Why Does This Work?
 
-A DEMUX with its data input tied to Logic HIGH behaves as a pure **minterm generator** — each output corresponds to exactly one input combination, and it goes HIGH if and only if that exact combination is present.
+Since exactly one input is assumed HIGH, each input line corresponds to exactly one binary position:
 
-Since any Boolean function can be written as a Sum of Minterms, OR-ing together the correct subset of DEMUX outputs reconstructs the desired function exactly — no matter how "irregular" that function's truth table looks. This is one of the foundational principles in digital logic synthesis, and it's the reason lookup-table-based FPGA fabrics work at all.
+```
+D5 = 1  →  Binary Output = 101
+D2 = 1  →  Binary Output = 010
+```
+
+Because only one input is ever active, the OR logic never has to arbitrate between competing inputs — it simply reflects whichever single input happens to be set.
+
+---
+
+## 🔥 One-Hot Encoding
+
+The encoder requires its input to follow the **one-hot** rule: exactly one bit HIGH, all remaining bits LOW.
+
+**Valid inputs:**
+
+```
+00000001
+00000010
+00000100
+00001000
+00010000
+00100000
+01000000
+10000000
+```
+
+**Invalid inputs:**
+
+```
+00000000   ← no input active
+00000110   ← two inputs active
+10100000   ← two inputs active
+```
+
+If more than one input goes HIGH at once, a standard encoder has no way to uniquely resolve the correct output — this exact ambiguity is what motivates the Priority Encoder (see [Limitations](#-limitations) below).
 
 ---
 
 ## 💻 RTL Implementation
 
-This project deliberately combines **three** RTL modeling styles in one design:
+The encoder is implemented using **behavioral RTL modeling** — each output bit is generated via continuous assignment (`assign`) statements based directly on the derived Boolean equations. This implementation is simple, fully synthesizable, and technology-independent.
 
-- **Behavioral Modeling** — the 1×8 DEMUX itself
-- **Structural Modeling** — instantiating the DEMUX as a module
-- **Gate-Level Modeling** — OR gate primitives combining the minterms
+---
 
-### Gate Primitive Usage
+## 🧪 Testbench Methodology
 
-Rather than the more common continuous assignment:
+The standard testbench verifies all valid one-hot input combinations automatically. A **`for` loop** combined with the **left shift operator** generates every one-hot pattern without hardcoding them individually:
 
 ```verilog
-assign sum = y[1] | y[2] | y[4] | y[7];
+d = 8'b00000001 << i;
 ```
 
-this project uses Verilog's **built-in gate primitives** directly:
+This produces:
+
+```
+i=0 → 00000001
+i=1 → 00000010
+i=2 → 00000100
+   ...
+i=7 → 10000000
+```
+
+The encoder's output is observed for each generated input.
+
+---
+
+## ✅ Self-Checking Verification
+
+The self-checking testbench automatically compares the encoder's output against the expected binary value:
 
 ```verilog
-or u_sum   (sum,   y[1], y[2], y[4], y[7]);
-or u_carry (carry, y[3], y[5], y[6], y[7]);
+if (b == i)
 ```
 
-Functionally identical to the `assign` version, but this is genuine **gate-level structural design** — each `or` instance represents an actual OR gate primitive, not a synthesized Boolean expression.
+Since Verilog compares numeric *values* rather than literal formats, the binary output compares cleanly against the decimal loop variable — for example, `3'b101 == 5` evaluates to true and reports `PASS`. This removes manual waveform inspection entirely and fully automates functional verification.
 
 ---
 
 ## 📂 Project Structure
 
 ```
-13_full_adder_using_1x8_demux/
+14_encoder/
 ├── rtl/
-│   ├── demux_1x8.v
-│   └── full_adder_using_1x8_demux.v
+│   └── encoder_8x3.v
 │
 ├── tb/
-│   ├── full_adder_using_1x8_demux_tb.v
-│   └── full_adder_using_1x8_demux_self_checking_tb.v
+│   ├── encoder_8x3_tb.v
+│   └── encoder_8x3_self_checking_tb.v
 │
 ├── waveform.png
 └── README.md
@@ -224,7 +215,7 @@ Functionally identical to the `assign` version, but this is genuine **gate-level
 
 ## 🧪 Simulation
 
-Verified using both a **standard testbench** and a **self-checking testbench**, sweeping all eight input combinations of `A`, `B`, and `Cin`. Generated SUM and CARRY outputs are compared against the expected Full Adder results for every case.
+Verified using both a **standard testbench** and a **self-checking testbench**, sweeping all eight valid one-hot input combinations. The generated binary output is compared against the expected encoded value for every case.
 
 ---
 
@@ -232,10 +223,10 @@ Verified using both a **standard testbench** and a **self-checking testbench**, 
 
 ```bash
 # 1 — Compile
-iverilog -o full_adder.out full_adder_using_1x8_demux.v demux_1x8.v full_adder_using_1x8_demux_tb.v
+iverilog -o encoder.out encoder_8x3.v encoder_8x3_tb.v
 
 # 2 — Simulate
-vvp full_adder.out
+vvp encoder.out
 
 # 3 — View Waveform
 gtkwave waveform.vcd
@@ -243,18 +234,42 @@ gtkwave waveform.vcd
 
 ---
 
+## ⚠️ Limitations
+
+A standard Binary Encoder assumes:
+
+- Exactly one input is HIGH at any time
+- Multiple simultaneously active inputs produce an **ambiguous** output
+- There's no built-in mechanism to determine input **priority**
+
+This limitation is exactly what motivates the **Priority Encoder** — a circuit designed specifically to resolve the case where multiple inputs are active at once.
+
+---
+
+## 🌟 Real-World Applications
+
+- Keyboard encoding
+- Interrupt controllers
+- Data compression
+- Digital communication systems
+- Input selection circuits
+- Processor input interfaces
+
+---
+
 ## 🎯 Learning Outcomes
 
 After completing this project, the following concepts are understood:
 
-- Canonical Sum of Minterms (SOP)
-- Minterm Generation Using a DEMUX
-- Full Adder Design
-- Gate Primitive Instantiation
-- Structural RTL Design
-- Module Instantiation
+- Binary Encoding
+- One-Hot Encoding
+- Truth Table Derivation
+- Boolean Equation Derivation
+- Continuous Assignment (`assign`)
+- Combinational RTL Design
 - Self-Checking Verification
-- Technology-Independent RTL Design
+- Shift Operators (`<<`)
+- Automated Testbench Generation
 
 ---
 
@@ -262,20 +277,21 @@ After completing this project, the following concepts are understood:
 
 The concepts learned here prepare you for:
 
-- Encoder
 - Priority Encoder
 - Decoder
-- Programmable Logic Arrays (PLA)
-- Programmable Array Logic (PAL)
-- FPGA Lookup Table (LUT) Design
+- Binary to Gray Converter
+- Gray to Binary Converter
+- BCD to Seven-Segment Decoder
+- Parity Generator
+- Barrel Shifter
 
 ---
 
 ## 🏁 Conclusion
 
-This project demonstrates the implementation of a **1-bit Full Adder** using a **1×8 Demultiplexer** and **OR gate primitives**. By generating canonical minterms and combining them through OR gates, the design illustrates one of the most fundamental techniques in digital logic synthesis.
+This project demonstrates the implementation of an **8-to-3 Binary Encoder** using combinational logic in Verilog HDL. By converting one-hot input signals into their corresponding binary representation, the design introduces one of the fundamental building blocks of digital systems.
 
-It also introduces gate-level Verilog primitives and reinforces structural RTL design — providing a solid conceptual foundation for understanding programmable logic devices and how modern digital hardware gets implemented under the hood.
+It also reinforces Boolean logic derivation, continuous assignment modeling, one-hot encoding, automated testbench generation, and self-checking verification — providing a strong foundation for more advanced encoding circuits such as the **Priority Encoder**.
 
 ---
 
