@@ -215,7 +215,7 @@ This removes manual waveform inspection from the verification loop entirely.
 
 ## 🌊 Simulation Waveform
 
-![Waveform](Images/waveform.png)
+![Waveform](waveform.png)
 
 **Analysis:**
 - Highest-priority input is correctly selected in every combination, including cases with multiple active bits ✅
