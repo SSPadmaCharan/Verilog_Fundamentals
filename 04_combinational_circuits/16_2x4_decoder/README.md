@@ -207,7 +207,7 @@ This enables fully automatic functional verification, with no manual waveform re
 
 ## 🌊 Simulation Waveform
 
-![Waveform](Images/waveform.png)
+![Waveform](waveform.png)
 
 **Analysis:**
 - Exactly one output line is HIGH for every input combination ✅
