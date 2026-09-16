@@ -504,5 +504,3 @@ Basic Verilog → Combinational Logic → Sequential Logic
 ---
 
 *"Learning Verilog by designing hardware, verifying functionality, documenting the process, and improving one project at a time."*
-
-</div>
