@@ -5,7 +5,9 @@ module siso_tb;
 reg s_i;
 reg clk;
 reg exp_s_o;
- 
+
+ reg [3:0]exp_q;
+
  wire s_o;
  
  siso dut(
@@ -16,9 +18,12 @@ reg exp_s_o;
  );
 
 integer i;
-localparam total_test_cases=2**1;
+integer j;
+
+localparam total_test_cases=2**4;
 integer f_counter = 0;
 integer test_counter = 0;
+reg [3:0]test_data;
 
 always #5 clk=~clk;
 
@@ -32,15 +37,36 @@ initial begin
 
      s_i=0;
 
-@(posedge clk)
-#1;
+exp_q=4'bxxxx;
 
-exp_s_o=1'b0;
+repeat (4) begin
+    @(negedge clk);
+    s_i=0;
+
+    @(posedge clk);
+    #1;
+
+end
+
+exp_q=4'b0;
 
 for (i =0 ;i<total_test_cases ;i=i+1 ) begin
-    s_i=i;
+   test_data=i;
 
-    exp_s_o=s_i;
+   for (j =3 ;j>=0 ;j=j-1 ) begin
+
+    @(negedge clk);
+    s_i= test_data[j];
+
+    @(posedge clk);
+
+    exp_q={exp_q[2:0],s_i};
+
+    #1;
+    exp_s_o=exp_q[3];
+    
+    
+   end
 test_counter=test_counter+1;
 
     if(exp_s_o==s_o)begin

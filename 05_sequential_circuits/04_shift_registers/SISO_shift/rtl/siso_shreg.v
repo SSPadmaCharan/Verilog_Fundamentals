@@ -18,7 +18,7 @@ generate
     for (i=1;i<4;i=i+1) begin : d_ff_gen
    
 
-       d_ff dff2(
+       d_ff dff(
 
     .d(q[i-1]),
     .clk(clk),
