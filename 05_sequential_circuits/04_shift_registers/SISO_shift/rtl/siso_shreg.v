@@ -1,48 +1,36 @@
 module siso(
-    input [3:0]s_i,
+    input s_i,
     input clk,
 
-    output [3:0]s_o
+    output s_o
 );
 
 wire [3:0]q;
+       d_ff dff1(
 
-genvar 
-generate
-    for (i=0;i<4;i=i+1) begin
-        d_ff dff1(
-
-    .d(s_i[i]),
+    .d(s_i),
     .clk(clk),
     .q(q[0])
 );
 
+genvar i;
+generate
+    for (i=1;i<4;i=i+1) begin : d_ff_gen
+   
+
        d_ff dff2(
 
-    .d(q[0]),
+    .d(q[i-1]),
     .clk(clk),
-    .q(q[1])
+    .q(q[i])
 );
 
-       d_ff dff3(
-
-    .d(q[1]),
-    .clk(clk),
-    .q(q[2])
-);
-
-
-       d_ff dff4(
-
-    .d(q[2]),
-    .clk(clk),
-    .q(q[3])
-);
+    
  end
 
 endgenerate
 
-assign s_o=q;
+assign s_o=q[3];
  
 endmodule 
 

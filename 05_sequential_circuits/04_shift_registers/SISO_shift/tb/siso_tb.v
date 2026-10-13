@@ -2,11 +2,11 @@
 
 module siso_tb;
 
-reg [3:0]s_i;
+reg s_i;
 reg clk;
-reg [3:0]exp_s_o;
+reg exp_s_o;
  
- wire [3:0]s_o;
+ wire s_o;
  
  siso dut(
     .s_i(s_i),
@@ -16,7 +16,7 @@ reg [3:0]exp_s_o;
  );
 
 integer i;
-localparam total_test_cases=2**4;
+localparam total_test_cases=2**1;
 integer f_counter = 0;
 integer test_counter = 0;
 
@@ -35,7 +35,7 @@ initial begin
 @(posedge clk)
 #1;
 
-exp_s_o=4'b0;
+exp_s_o=1'b0;
 
 for (i =0 ;i<total_test_cases ;i=i+1 ) begin
     s_i=i;
